@@ -1,6 +1,6 @@
 //API Call
 
-var queryURL = "https://broadlistening-com-personality-insights-from-twitter-v1.p.mashape.com/blapi?user=floridamanley";
+var queryURL = "https://broadlistening-com-personality-insights-from-twitter-v1.p.mashape.com/blapi?user=StephenCurry30";
     // $.ajax({
     //   url: queryURL,
     //   method: 'GET'
