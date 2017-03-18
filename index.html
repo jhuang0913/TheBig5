@@ -10,21 +10,25 @@
    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
    <!-- <script type="text/javascript" src="logic.js"></script>-->
   
+   <link rel="stylesheet" type="text/css" href="assets/style.css">
+
+   <link href="https://fonts.googleapis.com/css?family=Diplomata+SC" rel="stylesheet">
+
    <!-- Bootstrap CDN-->
 
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
    </head>
 
    <body>
    <div class="container" id="main-container">
-   		<header><h1> The Big 5</h1></header>
-   			<div class="row">
+   		<header>Who are you?</header>
 <!--For inputting user information -->
-   				<div class="col-xs-12 col-sm-6 col-md-6"><h2>Enter Your Information Here</h2>
+   				<div class="container" id="userInput">
+          <h2>Enter Your Information Here</h2>
    					<form>
-            <!-- Block of text-->
-   						<textarea class="form-control" rows="6" id="writing-sample" placeholder="Enter your writing sample here"></textarea>
   							<div class="form-group">
                 <!--Twitter Handle-->
     							<label for="inputTwitter">Twitter Handle</label>
@@ -33,16 +37,39 @@
                 <!--Submit data-->
     							<button type="submit" class="btn btn-default">Submit</button>
 					</form>
-   				</div>
-
-  				<div class="col-xs-12 col-sm-6 col-md-6"><h2>Your Breakdown</h2>
+   				
+  				<div id="breakdown">
           <!--results-->
-   					<div class="container" id="results">
-   						<p> Temporary text</p>
+   					<div class="container" id="results"><div class="row">
+            <div id="twitter-image"><img src="assets/images/twitter.png" id="user-image"></div>
+          
+   						<div id="Personality"><h4>Myers-Briggs Class</h4></div>
+              </div>
+              <div class="row">
+              <div id="chart"><img src="assets/images/phchart.jpg" id="image"> </div>
+              </div>
+              <div class="row">
+              <div id="description">Are you a dreamer or developer?</div>
+              </div>
+              <div class="row">
+              <div id="celebrity_match"><strong>Your Celebrity matches</strong>
+              <img src="assets/images/placeholder.png" id="cel-image">
+              <img src="assets/images/placeholder.png" id="cel-image">
+              <img src="assets/images/placeholder.png" id="cel-image">
+              <img src="assets/images/placeholder.png" id="cel-image"></div>
+              </div>
    					</div>
    				</div>
    			</div>
-   </div>
+
+
    <script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
    <script src="assets/javascript/js.js"></script>
+</body>
+
+   <footer>
+    <div class="container footer">
+      &copy; Copyright 2017 The Good Lobsters
+    </div>
+  </footer> 
 </body>
