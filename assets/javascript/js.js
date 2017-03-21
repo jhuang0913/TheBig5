@@ -9,6 +9,7 @@ var queryURL = "https://broadlistening-com-personality-insights-from-twitter-v1.
     // });
 
   $("#results").hide();
+  $("#logo").show();
 
 
     $.ajax({
