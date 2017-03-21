@@ -8,6 +8,9 @@ var queryURL = "https://broadlistening-com-personality-insights-from-twitter-v1.
     //   console.log(response);
     // });
 
+  $("#results").hide();
+
+
     $.ajax({
   	type: 'GET',
   	beforeSend: function(request) {
