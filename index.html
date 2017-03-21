@@ -4,7 +4,7 @@
  <head>
 
    <meta charset="UTF-8">
-   <title>The Big 5</title>
+   <title>Boiling Pot</title>
 
    <!-- jQuery -->
    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -17,6 +17,18 @@
    <!-- Bootstrap CDN-->
 
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+     <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Morris charts -->
+  <link rel="stylesheet" href="assets/plugins/morris/morris.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="assets/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.min.css">
 
 
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -33,47 +45,96 @@
 <div class="ct-chart ct-perfect-fourth"></div>
 
    <div class="container" id="main-container">
-   		<header><h1> The Big 5</h1></header>
-   			<div class="row">
+      <header><h1> The Big 5</h1></header>
+        <div class="row">
 
 <!--For inputting user information -->
-   				<div class="container" id="userInput">
+          <div class="container" id="userInput">
           <h3>Do you know what your Twitter feed says about you? Are you a trend setter or just a follower? Enter your Twitter handle here to see what your impact in the world of Twitter is.</h3>
-   					<form>
-  							<div class="form-group">
+            <form>
+                <div class="form-group">
                 <!--Twitter Handle-->
-    							<label for="inputTwitter">Twitter Handle</label>
-    								<input type="twitter" class="form-control" id="inputTwitter" placeholder="Twitter Handle">
-  							</div>
+                  <label for="inputTwitter">Twitter Handle</label>
+                    <input type="twitter" class="form-control" id="inputTwitter" placeholder="Twitter Handle">
+                </div>
                 <!--Submit data-->
-    							<button type="submit" class="btn btn-default">Submit</button>
-					</form>
-          </div>
-   				</div>
-  				<div id="breakdown">
-          <!--results-->
-   					<div class="container" id="results"><div class="row">
-            <div class="col-md-4">
-            <!--To display user information-->
-            <div id="twitter-image">For user information</div>
-          </div>
-          <div class="col-md-8">
-   						<div id="activity"><h4>How they are using Twitter</h4></div>
-              <div class="row">
-              <div id="chart">Pir chart of their activity<img src="assets/images/phchart.jpg" id="image"> </div>
-              </div>
-              <div class="row">
-              <div id="followers"># of followers</div>
-              <div id="following"># of things you follow</div>
-              </div>
-              <div class="row">
-              <div id="extra"><strong>???</strong>
-              </div>
-   					</div>
-   				</div>
-          </div>
-</div>
-</div>
+                  <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+                <section class="content">
+                 
+                  <div class="row">
+                    <div class="col-md-6">
+                      <!-- AREA CHART -->
+                      <div class="box box-primary">
+                        <div class="box-header with-border">
+                          <h3 class="box-title">Area Chart</h3>
+
+                          <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                        </div>
+                        <div class="box-body chart-responsive">
+                          <div class="chart" id="revenue-chart" style="height: 300px;"></div>
+                        </div>
+                        <!-- /.box-body -->
+                      </div>
+                      <!-- /.box -->
+
+                      <!-- DONUT CHART -->
+                      <div class="box box-danger">
+                        <div class="box-header with-border">
+                          <h3 class="box-title">Donut Chart</h3>
+
+                          <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                        </div>
+                        <div class="box-body chart-responsive">
+                          <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
+                        </div>
+                        <!-- /.box-body -->
+                      </div>
+                      <!-- /.box -->
+
+                    </div>
+                    <!-- /.col (LEFT) -->
+                    <div class="col-md-6">
+                      <!-- LINE CHART -->
+                      <div class="box box-info">
+                        <div class="box-header with-border">
+                          <h3 class="box-title">Line Chart</h3>
+
+                          <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                        </div>
+                        <div class="box-body chart-responsive">
+                          <div class="chart" id="line-chart" style="height: 300px;"></div>
+                        </div>
+                        <!-- /.box-body -->
+                      </div>
+                      <!-- /.box -->
+
+                      <!-- BAR CHART -->
+                      <div class="box box-success">
+                        <div class="box-header with-border">
+                          <h3 class="box-title">Bar Chart</h3>
+
+                          <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                        </div>
+                        <div class="box-body chart-responsive">
+                          <div class="chart" id="bar-chart" style="height: 300px;"></div>
+                        </div>
 
 <div class="row" id="logo">
 <div class="col-md-4">
