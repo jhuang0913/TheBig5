@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+ <head>
+
+   <meta charset="UTF-8">
+   <title>The Big 5</title>
+
+   <!-- jQuery -->
+   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+   <!-- <script type="text/javascript" src="logic.js"></script>-->
+  
+   <!-- Bootstrap CDN-->
+
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   </head>
+
+   <body>
+   <div class="container" id="main-container">
+   		<header><h1> The Big 5</h1></header>
+   			<div class="row">
+<!--For inputting user information -->
+   				<div class="col-xs-12 col-sm-6 col-md-6"><h2>Enter Your Information Here</h2>
+   					<form>
+            <!-- Block of text-->
+   						 <!-- Block of text-->
+                    <textarea class="form-control" rows="6" id="writing-sample" placeholder="Enter your writing sample here"></textarea>
+                    <div class="form-group">
+                        <!--Twitter Handle-->
+                        <label for="inputTwitter">Twitter Handle</label>
+                        <input type="twitter" class="form-control" id="inputTwitter" placeholder="Twitter Handle">
+                    </div>
+                    <!--Submit data-->
+                    <input class="btn btn-success" id="submit" type="submit" value="Submit">
+                    <input class="btn btn-danger" id="reset" type="reset" value="Reset">
+					</form>
+   				</div>
+
+  				<div class="col-xs-12 col-sm-6 col-md-6"><h2>Your Breakdown</h2>
+          <!--results-->
+   					<div class="container" id="results">
+   						<p> Temporary text</p>
+   					</div>
+   				</div>
+   			</div>
+   </div>
+   <script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
+   <script src="assets/javascript/js.js"></script>
+
+   <div id="atmanco-plugin-container"></div>
+<script src="https://sandbox.atmanco.com/plugin/bundle/light/atmanco-plugin.js">
+</script>
+<script>
+    AtmanCo.Plugin.initialize({
+        generateButton: true,
+        apiKey: "a2xzd2VhdDIxQGdtYWlsLmNvbTpPNlBsQ0U=",
+        uiLanguage: "en",
+        popup: false
+    });
+</script>
+</body>
