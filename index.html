@@ -33,13 +33,23 @@
    </head>
 
    <body>
-
-   <div class="container" id="main-container">
-
+    <div class="container" id="main-container">
+        <div class="container" id="bubble">
+      <header>Tweets about you</header>
+<!--For inputting user information -->
+          <div class="container" id="userInput">
+          <h3>Do you know what your Twitter feed says about you? Are you a trend setter or just a follower? Enter your Twitter handle here to see what your impact in the world of Twitter is.</h3>
+            <form>
+                <div class="form-group">
                 <!--Twitter Handle-->
                   <label for="inputTwitter">Twitter Handle</label>
                     <input type="twitter" class="form-control" id="inputTwitter" placeholder="Twitter Handle">
                 </div>
+                <!--Submit data-->
+                  <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+          </div>
+          </div>
                 <!--Submit data-->
                 <section class="content">
                  
@@ -146,6 +156,12 @@
    					</div>
    				</div>
    			</div>
+
+        <div class="row" id="logo">
+<div class="col-md-4">
+<img src="assets/images/Twitter_logo.png" id="logo">
+</div>
+</div>
 
 
    <script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
