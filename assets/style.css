@@ -5,14 +5,35 @@ body {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   color: #777;
   line-height: 34px;
+<<<<<<< HEAD
   background: url("images/background.jpg");
+=======
+
+
+}
+
+#main-container{
+  color: black;
+  background-color: white;
+
+}
+
+#bubble{
+  background: url("images/background3.jpg");
+  background: cover;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding-bottom: 50px;
+  margin-bottom: 25px;
+>>>>>>> 6687a8d31b299f3600c9f1f03121c9953ac33c53
 }
 
 form{
-	margin: 25px;
+  margin: 25px;
 }
 
 #userInput{
+<<<<<<< HEAD
 	background-color: rgb(47,79,79);
 	color: white;
 	padding: 20px;
@@ -23,16 +44,32 @@ header{
 	text-align: center;
 	font-family: 'Diplomata SC', cursive;
 	padding:20px;
+=======
+  color: black;
+  padding: 20px;
+}
+
+header{
+  font-size: 50px;
+  text-align: center;
+  font-family: Helvetica, "Helvetica Neue", Helvetica, sans-serif;
+  padding:20px;
+  font-weight: bolder;
+}
+
+#logo{
+  height: 100px;
+>>>>>>> 6687a8d31b299f3600c9f1f03121c9953ac33c53
 }
 
 #image{
-	border-radius: 25px;
+  border-radius: 25px;
 
 }
 
 #cel-image{
-	width: 100px;
-	margin: 15px;
+  width: 100px;
+  margin: 15px;
 }
 
 .footer {
@@ -48,14 +85,14 @@ header{
     }
 
     #user-image{
-	width: 250px;
-	margin: 5px;
-	align-items: center;
+  width: 250px;
+  margin: 5px;
+  align-items: center;
 }
 
-#breakdown {
-	background-color: white;
-	display: flex;
+#content {
+  background-color: white;
+  display: flex;
     align-items: center;
     color: black;
 }

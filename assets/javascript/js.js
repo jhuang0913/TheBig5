@@ -103,7 +103,6 @@ $("#submit").on("click", function() {
     $('#followers').html(TwitterFollowers);
     $('#twitterFullName').html(TwitterUser);
     $('#shares').html(TwitterShares);
-    $('#top_int_image').html();
 
     //show famous people based off type
     //types, temporantents, personalities
@@ -115,16 +114,19 @@ $("#submit").on("click", function() {
   });//ajax
 
 
-  // var searchURL = "https://api.social-searcher.com/v2/search?q=Obama&key=286ab6993019696c1f073d9c59058ff6";
- 
-   // var searchParams = {
-  //  type: 'GET',
-  //  url: searchURL
-//};
+  var searchURL = "https://api.social-searcher.com/v2/search?q=" + twitterInput + "&type=photo&network=twitter&limit=5&key=286ab6993019696c1f073d9c59058ff6";
+   $.ajax({
+            url: searchURL,
+            method: "GET",
+            dataType: "json",
 
-        
- // $.ajax(searchParams).done(function(response) {
- // });
+          })
+          .done(function(response) {
+            JSON.parse(response);
+
+
+          });
+  
 
 });// end of click submit
 
@@ -226,6 +228,6 @@ console.log(whoAreYou.type);
 
 
 
-	
+  
 
 
