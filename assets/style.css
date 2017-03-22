@@ -9,49 +9,49 @@ body {
 }
 
 #main-container{
-	color: black;
-	background-color: white;
+  color: black;
+  background-color: white;
 
 }
 
 #bubble{
-	background: url("images/background3.jpg");
-	background: cover;
-	background-repeat: no-repeat;
-	background-size: 100%;
-	padding-bottom: 50px;
-	margin-bottom: 25px;
+  background: url("images/background3.jpg");
+  background: cover;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding-bottom: 50px;
+  margin-bottom: 25px;
 }
 
 form{
-	margin: 25px;
+  margin: 25px;
 }
 
 #userInput{
-	color: black;
-	padding: 20px;
+  color: black;
+  padding: 20px;
 }
 
 header{
-	font-size: 50px;
-	text-align: center;
-	font-family: Helvetica, "Helvetica Neue", Helvetica, sans-serif;
-	padding:20px;
-	font-weight: bolder;
+  font-size: 50px;
+  text-align: center;
+  font-family: Helvetica, "Helvetica Neue", Helvetica, sans-serif;
+  padding:20px;
+  font-weight: bolder;
 }
 
 #logo{
-	height: 100px;
+  height: 100px;
 }
 
 #image{
-	border-radius: 25px;
+  border-radius: 25px;
 
 }
 
 #cel-image{
-	width: 100px;
-	margin: 15px;
+  width: 100px;
+  margin: 15px;
 }
 
 .footer {
@@ -67,14 +67,14 @@ header{
     }
 
     #user-image{
-	width: 250px;
-	margin: 5px;
-	align-items: center;
+  width: 250px;
+  margin: 5px;
+  align-items: center;
 }
 
-#breakdown {
-	background-color: white;
-	display: flex;
+#content {
+  background-color: white;
+  display: flex;
     align-items: center;
     color: black;
 }
