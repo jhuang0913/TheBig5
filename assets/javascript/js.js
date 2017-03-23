@@ -38,6 +38,7 @@
       Defender: "this is the defender description"
     };
 
+  $("#results").hide();
 
 
 $("#submit").on("click", function() {
@@ -83,6 +84,7 @@ $("#submit").on("click", function() {
     $('#followers').html(TwitterFollowers);
     $('#twitterFullName').html(TwitterUser);
     $('#shares').html(TwitterShares);
+    $("#results").show();
 
 
     //show famous people based off type
@@ -201,7 +203,6 @@ console.log(whoAreYou.type);
       hideHover: 'auto'
     });
   });
-
 
 
 

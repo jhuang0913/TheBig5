@@ -38,6 +38,7 @@
       <header>Tweets about you</header>
 <!--For inputting user information -->
           <div class="container" id="userInput">
+          <div class="loader" id="loaderIcon"></div>
           <h3>Do you know what your Twitter feed says about you? Are you a trend setter or just a follower? Enter your Twitter handle here to see what your impact in the world of Twitter is.</h3>
             <form>
                 <div class="form-group">
@@ -46,12 +47,16 @@
                     <input type="twitter" class="form-control" id="inputTwitter" placeholder="Twitter Handle">
                 </div>
                 <!--Submit data-->
-                  <button type="submit" class="btn btn-default">Submit</button>
+                  <button type="submit" class="btn btn-default">Submit</button> <button type="button" class="btn btn-danger" id="reset">Reset</button>
           </form>
           </div>
           </div>
                 <!--Submit data-->
+                <div id="results">
                 <section class="content">
+                <div class="row">
+                <div id="TwitterUser"></div>
+                </div>
                  
                   <div class="row">
                     <div class="progress">Social Capital
@@ -84,7 +89,7 @@
                         </div>
                         </div>
                         </div>
-                        
+
                         <div class="box-body chart-responsive">
                           <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
                         </div>
@@ -153,6 +158,8 @@
    					</div>
    				</div>
    			</div>
+        </section>
+        </div>
 
         <div class="row" id="logo">
 <div class="col-md-4">
