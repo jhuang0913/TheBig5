@@ -38,13 +38,9 @@
       Defender: "this is the defender description"
     };
 
-
-  $("#results").hide();
-
 var introvert = "Introverts get their energy by spending time in small groups, seeking depth instead of breadth of friendships. Many confuse introverts as being quiet in isolation when really it means that someone is getting affirmation in their goal achievement with self-acknowledgement.";
 var intuitive = "Intuitive people live in the past in order to predict the future. They like to take in information with an inclination to use their pattern recognition to classify their “here and now” environments so that they may have an idea of what to expect in the future. We are Intuitive when we: Come up with a new way of doing things Think about future implications for a current action Perceive underlying meaning in what people say or do See the big picture";
 var judging = "Judging has to do with how people live their lives. They like to have plans confirmed and set in advance of completing a task and see that their life has structure. We are using Judging when we: Make a list of things to do Schedule things in advance Form and express judgments Bring closure to an issue so that we can move on"
-
 
 
 
@@ -107,7 +103,6 @@ $("#submit").on("click", function() {
     $('#followers').html(TwitterFollowers);
     $('#twitterFullName').html(TwitterUser);
     $('#shares').html(TwitterShares);
-    $("#results").show();
 
     //show famous people based off type
     //types, temporantents, personalities
@@ -118,47 +113,70 @@ $("#submit").on("click", function() {
 
   });//ajax
 
+  $.ajaxPrefilter(function(options) {
+  if (options.crossDomain && jQuery.support.cors) {
+     options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+  }
+  });
 
   var searchURL = "https://api.social-searcher.com/v2/search?q=" + twitterInput + "&type=photo&network=twitter&limit=5&key=286ab6993019696c1f073d9c59058ff6";
+  
    $.ajax({
             url: searchURL,
             method: "GET",
-            dataType: "json",
-
+            dataType: "json"
           })
           .done(function(response) {
-            JSON.parse(response);
+
+
+
+          for (var i = 0; i < 5; i++){
+            var image = response.posts[0].image;
+            console.log("image" + image);
+            images++;
+
+            var photo = $('#photo'+ images).attr("src", image);
+
+
+
+          }
+
+
+
+
+
+            console.log(response);
+
+
+            console.log("posts" + response.posts[0].image);
+
+
+
+
+            console.log(response);
+
 
 
           });
 
-
-   kloutConnect.init({
-     apiKey:"nqfmhgm6t56scc8csdfmz9wy",
-     success:function (data) {
-      alert(JSON.stringify(data));
-     },
-     scope:"KloutRead,KloutPlusK"
-   });
-  
-
- // Klout API URL
+  // Klout API URL
 var kloutSearch = "http://api.klout.com/v2/identity.json/twitter?screenName=" + twitterInput + "&key=nqfmhgm6t56scc8csdfmz9wy";
-var kloutParams = {
-        type: 'GET',
+
+$.ajax({
+        method: "GET",
         url: kloutSearch,
-        processData: false,
-        beforeSend: function(request) {
-            request.setRequestHeader("X-Originating-Ip", '73.182.82.77');
-        },
-};
-
-    $.ajax(kloutParams).done(function(klout) {
-        var kloutResponse = JSON.parse(klout);
-        console.log (kloutResponse);
-        //var kloutSearch = "http://api.klout.com/v2/user.json/" + + "score?key=nqfmhgm6t56scc8csdfmz9wy";
-
+      
+})
+.done(function(klout) {
+        console.log (klout);
+        console.log(klout.id);
         });
+
+
+var kloutId = "http://api.klout.com/v2/user.json/" + + "score?key=nqfmhgm6t56scc8csdfmz9wy";
+
+
+
 
 });// end of click submit
 
@@ -259,5 +277,7 @@ console.log(whoAreYou.type);
 
 
 
+
+  
 
 
