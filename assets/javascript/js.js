@@ -126,11 +126,19 @@ $("#submit").on("click", function() {
 
 
           });
+
+
+   kloutConnect.init({
+     apiKey:"nqfmhgm6t56scc8csdfmz9wy",
+     success:function (data) {
+      alert(JSON.stringify(data));
+     },
+     scope:"KloutRead,KloutPlusK"
+   });
   
 
  // Klout API URL
 var kloutSearch = "http://api.klout.com/v2/identity.json/twitter?screenName=" + twitterInput + "&key=nqfmhgm6t56scc8csdfmz9wy";
-
 var kloutParams = {
         type: 'GET',
         url: kloutSearch,
@@ -143,6 +151,8 @@ var kloutParams = {
     $.ajax(kloutParams).done(function(klout) {
         var kloutResponse = JSON.parse(klout);
         console.log (kloutResponse);
+        //var kloutSearch = "http://api.klout.com/v2/user.json/" + + "score?key=nqfmhgm6t56scc8csdfmz9wy";
+
         });
 
 });// end of click submit
