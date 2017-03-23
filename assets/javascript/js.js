@@ -38,7 +38,15 @@
       Defender: "this is the defender description"
     };
 
+
   $("#results").hide();
+
+var introvert = "Introverts get their energy by spending time in small groups, seeking depth instead of breadth of friendships. Many confuse introverts as being quiet in isolation when really it means that someone is getting affirmation in their goal achievement with self-acknowledgement.";
+var intuitive = "Intuitive people live in the past in order to predict the future. They like to take in information with an inclination to use their pattern recognition to classify their “here and now” environments so that they may have an idea of what to expect in the future. We are Intuitive when we: Come up with a new way of doing things Think about future implications for a current action Perceive underlying meaning in what people say or do See the big picture";
+var judging = "Judging has to do with how people live their lives. They like to have plans confirmed and set in advance of completing a task and see that their life has structure. We are using Judging when we: Make a list of things to do Schedule things in advance Form and express judgments Bring closure to an issue so that we can move on"
+
+
+
 
 
 $("#submit").on("click", function() {
@@ -75,6 +83,21 @@ $("#submit").on("click", function() {
     var TwitterUser = response.TwitterUser;
     var TwitterFollowers = response.TwitterFollowers;
     var TwitterShares = response.TwitterShares;
+    var counter = 0; 
+
+    for (var i = 0; i < 5; i++){
+      var interactUN = response.TwitterInteractsWith[i][0];
+      counter++;
+      $('#interactun'+ counter).html(interactUN);
+
+      var img = $('<img>')
+      var twitterInteractionImg = "<a href='https://twitter.com/'" + interactUN + ">" + "<img src = 'https://twitter.com/" + interactUN + "/profile_image?size=original' height='90' width='90' style='display: -webkit-box;'/></a>"
+
+      $('#top_int_image'+ counter).html(twitterInteractionImg);
+
+
+      console.log("interacts with:  " + response.TwitterInteractsWith[i][0]);
+    }
 
     //var twitterFullName = response.
     //console.log("twitterImage" + twitterImage);
@@ -86,7 +109,6 @@ $("#submit").on("click", function() {
     $('#shares').html(TwitterShares);
     $("#results").show();
 
-
     //show famous people based off type
     //types, temporantents, personalities
 
@@ -97,16 +119,46 @@ $("#submit").on("click", function() {
   });//ajax
 
 
-  // var searchURL = "https://api.social-searcher.com/v2/search?q=Obama&key=286ab6993019696c1f073d9c59058ff6";
- 
-   // var searchParams = {
-  //  type: 'GET',
-  //  url: searchURL
-//};
+  var searchURL = "https://api.social-searcher.com/v2/search?q=" + twitterInput + "&type=photo&network=twitter&limit=5&key=286ab6993019696c1f073d9c59058ff6";
+   $.ajax({
+            url: searchURL,
+            method: "GET",
+            dataType: "json",
 
-        
- // $.ajax(searchParams).done(function(response) {
- // });
+          })
+          .done(function(response) {
+            JSON.parse(response);
+
+
+          });
+
+
+   kloutConnect.init({
+     apiKey:"nqfmhgm6t56scc8csdfmz9wy",
+     success:function (data) {
+      alert(JSON.stringify(data));
+     },
+     scope:"KloutRead,KloutPlusK"
+   });
+  
+
+ // Klout API URL
+var kloutSearch = "http://api.klout.com/v2/identity.json/twitter?screenName=" + twitterInput + "&key=nqfmhgm6t56scc8csdfmz9wy";
+var kloutParams = {
+        type: 'GET',
+        url: kloutSearch,
+        processData: false,
+        beforeSend: function(request) {
+            request.setRequestHeader("X-Originating-Ip", '73.182.82.77');
+        },
+};
+
+    $.ajax(kloutParams).done(function(klout) {
+        var kloutResponse = JSON.parse(klout);
+        console.log (kloutResponse);
+        //var kloutSearch = "http://api.klout.com/v2/user.json/" + + "score?key=nqfmhgm6t56scc8csdfmz9wy";
+
+        });
 
 });// end of click submit
 
@@ -207,6 +259,5 @@ console.log(whoAreYou.type);
 
 
 
-	
 
 
