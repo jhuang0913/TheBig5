@@ -38,9 +38,13 @@
       Defender: "this is the defender description"
     };
 
+
+  $("#results").hide();
+
 var introvert = "Introverts get their energy by spending time in small groups, seeking depth instead of breadth of friendships. Many confuse introverts as being quiet in isolation when really it means that someone is getting affirmation in their goal achievement with self-acknowledgement.";
 var intuitive = "Intuitive people live in the past in order to predict the future. They like to take in information with an inclination to use their pattern recognition to classify their “here and now” environments so that they may have an idea of what to expect in the future. We are Intuitive when we: Come up with a new way of doing things Think about future implications for a current action Perceive underlying meaning in what people say or do See the big picture";
 var judging = "Judging has to do with how people live their lives. They like to have plans confirmed and set in advance of completing a task and see that their life has structure. We are using Judging when we: Make a list of things to do Schedule things in advance Form and express judgments Bring closure to an issue so that we can move on"
+
 
 
 
@@ -103,6 +107,7 @@ $("#submit").on("click", function() {
     $('#followers').html(TwitterFollowers);
     $('#twitterFullName').html(TwitterUser);
     $('#shares').html(TwitterShares);
+    $("#results").show();
 
     //show famous people based off type
     //types, temporantents, personalities
@@ -254,7 +259,5 @@ console.log(whoAreYou.type);
 
 
 
-
-  
 
 
