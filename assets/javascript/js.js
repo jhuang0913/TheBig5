@@ -128,6 +128,23 @@ $("#submit").on("click", function() {
           });
   
 
+ // Klout API URL
+var kloutSearch = "http://api.klout.com/v2/identity.json/twitter?screenName=" + twitterInput + "&key=nqfmhgm6t56scc8csdfmz9wy";
+
+var kloutParams = {
+        type: 'GET',
+        url: kloutSearch,
+        processData: false,
+        beforeSend: function(request) {
+            request.setRequestHeader("X-Originating-Ip", '73.182.82.77');
+        },
+};
+
+    $.ajax(kloutParams).done(function(klout) {
+        var kloutResponse = JSON.parse(klout);
+        console.log (kloutResponse);
+        });
+
 });// end of click submit
 
 
