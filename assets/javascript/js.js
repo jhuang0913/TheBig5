@@ -127,11 +127,12 @@ $("#submit").on("click", function() {
             dataType: "json"
           })
           .done(function(response) {
+            var images = 0;
 
 
 
           for (var i = 0; i < 5; i++){
-            var image = response.posts[0].image;
+            var image = response.posts[i].image;
             console.log("image" + image);
             images++;
 
