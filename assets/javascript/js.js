@@ -46,7 +46,7 @@ $("#submit").on("click", function() {
     event.preventDefault();
 
     var twitterInput = $("#inputTwitter").val().trim();
-
+    console.log("User's Twitter Handle: " + twitterInput);
     var queryURL = "https://broadlistening-com-personality-insights-from-twitter-v1.p.mashape.com/blapi?user=" + twitterInput;
 
     var params = {
@@ -99,11 +99,6 @@ $("#submit").on("click", function() {
         $('#twitterFullName').html(TwitterUser);
         $('#shares').html(TwitterShares);
 
-        //show famous people based off type
-        //types, temporantents, personalities
-
-        //protectors, intellectuals, visionaries,
-
         console.log(response);
 
     }); //ajax
@@ -150,21 +145,23 @@ $("#submit").on("click", function() {
 
             // Twitter Screen Name turned into Klout ID Number and then variable 
             var kloutId = klout.id;
+            console.log("User's Klout ID: " + kloutId);
 
             // Klout ID Score API URL
             var kloutIdURL = "http://api.klout.com/v2/user.json/" + kloutId + "/score?key=nqfmhgm6t56scc8csdfmz9wy";
 
             // Klout ID Score AJAX Call
             $.ajax({
-                method: "GET",
-                url: kloutIdURL,
-            })
-            // done function for Klout ID Score AJAX Call
-            .done(function(kloutIdResult) {
+                    method: "GET",
+                    url: kloutIdURL,
+                })
+                // done function for Klout ID Score AJAX Call
+                .done(function(kloutIdResult) {
 
-            // Klout ID Score result and variable   
-            var kloutScore = kloutIdResult.score;
-            });
+                    // Klout ID Score result and variable   
+                    var kloutScore = kloutIdResult.score;
+                    console.log("User's Klout Score: " + kloutScore);
+                });
 
         }); // End of Klout AJAX 
 

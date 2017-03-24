@@ -1,167 +1,282 @@
 <!DOCTYPE html>
 <html lang="en-us">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Boiling Pot</title>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <!-- <script type="text/javascript" src="logic.js"></script>-->
-    <link rel="stylesheet" type="text/css" href="assets/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Diplomata+SC" rel="stylesheet">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Morris charts -->
-    <link rel="stylesheet" href="assets/plugins/morris/morris.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="assets/dist/css/AdminLTE.min.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.min.css">
-</head>
+ <head>
 
-<body>
-    <div class="container" id="main-container">
-        <div class="container" id="bubble">
-            <header>Tweets about you</header>
-            <!--For inputting user information -->
-            <div class="container" id="userInput">
-                <h3>Do you know what your Twitter feed says about you? Are you a trend setter or just a follower? Enter your Twitter handle here to see what your impact in the world of Twitter is.</h3>
-                <form>
-                    <div class="form-group">
-                        <!--Twitter Handle-->
-                        <label for="inputTwitter">Twitter Handle</label>
-                        <input type="twitter" class="form-control" id="inputTwitter" placeholder="Twitter Handle">
-                    </div>
-                    <!--Submit data-->
-                    <input class="btn btn-success" id="submit" type="submit" value="Enter">
-                    <input class="btn btn-danger" id="reset" type="reset" value="Reset">
-                </form>
+   <meta charset="UTF-8">
+   <title>Boiling Pot</title>
+
+   <!-- jQuery -->
+   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+   <!-- <script type="text/javascript" src="logic.js"></script>-->
+  
+   <link rel="stylesheet" type="text/css" href="assets/style.css">
+
+   <link href="https://fonts.googleapis.com/css?family=Diplomata+SC" rel="stylesheet">
+
+
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <script src="https://api.klout.com/v2/assets/js/klout.js"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Morris charts -->
+  <link rel="stylesheet" href="assets/plugins/morris/morris.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="assets/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.min.css">
+
+
+
+   </head>
+
+   <body>
+<div class="container" id="main-container">
+    <div class="container" id="bubble">
+    <header>Tweets about you</header>
+    <!--For inputting user information -->
+    <div class="container" id="userInput">
+        <div class="loader" id="loaderIcon"></div>
+        <h3>Do you know what your Twitter feed says about you? Are you a trend setter or just a follower? Enter your Twitter handle here to see what your impact in the world of Twitter is.</h3>
+        <form>
+            <div class="form-group">
+                <!--Twitter Handle-->
+                <label for="inputTwitter">Twitter Handle</label>
+                <input type="twitter" class="form-control" id="inputTwitter" placeholder="Twitter Handle">
             </div>
+            <!--form-group-->
+            <button type="submit" id="submit" class="btn btn-default">Submit</button>
+            <button type="button" class="btn btn-danger" id="reset">Reset</button>
+        </form>
+    </div><!--/userInput-->
+</div><!--/bubble-->
+
+    <div id="resultsSection">
+    <section class="content">
+        <div class="row">
+            <div id="TwitterUser"></div>
         </div>
-        <!--Submit data-->
-        <section class="content">
-            <div class="row">
-                <div class="col-md-6">
-                    <!-- AREA CHART -->
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Area Chart</h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        <!--/row-->
+
+        <div class="row">
+
+        <div class="progress">
+           <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" id="socialCap" aria-valuemax="100" style="">
+             <span class="sr-only socialCapDesc"></span>
+           </div>
+          </div><!--/progress-->
+          <div class="progress">
+           <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+             <span class="sr-only">20% Complete</span>
+           </div>
+          </div><!--/progress-->
+          <div class="progress">
+           <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+             <span class="sr-only">60% Complete (warning)</span>
+           </div>
+          </div><!--/progress-->
+          
+                   
+    <!-- Main content -->
+    <section class="content">
+      
+      <div class="row">
+        <div class="col-md-6">
+          
+          <!-- DONUT CHART -->
+          <div class="box box-danger">
+            <div class="box-header with-border">
+              <h3 class="box-title">Donut Chart</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body chart-responsive">
+              <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+        </div>
+        <!-- /.col (LEFT) -->
+        <div class="col-md-6">
+          
+
+          <!-- BAR CHART -->
+          <div class="box box-success">
+            <div class="box-header with-border">
+              <h3 class="box-title">Bar Chart</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body chart-responsive">
+              <div class="chart" id="bar-chart" style="height: 300px;"></div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+        </div>
+        <!-- /.col (RIGHT) -->
+      </div>
+      <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+
+
+
+        </div>
+        <!--/row-->
+      <h1> Top Interactions </h1>
+      <div class="row" style="background-color: #ecf0f5; padding: 17px;">
+          <div class="top_interactions">
+              <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                      <span class="info-box-icon bg-aqua" id="top_int_image1"></span>
+                      <div class="info-box-content">
+                          <span class="info-box-text" id="interactun1">Username</span>
+                      </div>
+                      <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+              </div>
+              <!--/col-->
+              <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                      <span class="info-box-icon bg-aqua" id="top_int_image2"></span>
+                      <div class="info-box-content">
+                          <span class="info-box-text" id="interactun2">Username</span>
+                      </div>
+                      <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+              </div>
+              <!--/col-->
+              <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                      <span class="info-box-icon bg-aqua" id="top_int_image3"></span>
+                      <div class="info-box-content">
+                          <span class="info-box-text" id="interactun3">Username</span>
+                      </div>
+                      <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+              </div>
+              <!--/col-->
+              <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="info-box">
+                      <span class="info-box-icon bg-aqua" id="top_int_image4"></span>
+                      <div class="info-box-content">
+                          <span class="info-box-text" id="interactun4">Username</span>
+                      </div>
+                      <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+              </div>
+              <!-- /.col -->
+          </div>
+          <!--/interactions-->
+      </div>
+      <!--/row-->
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-9">
+        <div class="nav-tabs-custom">
+            <div class="tab-content">
+                <div class="active tab-pane" id="activity">
+                    <!-- Post -->
+                    <div class="post">
+                        <div class="user-block">
+                            <img class="img-circle img-bordered-sm" src="../../dist/img/user6-128x128.jpg" alt="User Image">
+                            <span class="username">
+                          <span id="photoName"></span>
+                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
+                        </span>
+                            <span class="description">Latest Photo Posts</span>
+                        </div>
+                        <!--/user-block-->
+                        <div class="row margin-bottom">
+                            <div class="col-sm-6">
+                                <img class="img-responsive" id="photo1" src="" alt="Photo">
                             </div>
-                        </div>
-                        <div class="box-body chart-responsive">
-                            <div class="chart" id="revenue-chart" style="height: 300px;"></div>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.box -->
-                    <!-- DONUT CHART -->
-                    <div class="box box-danger">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Donut Chart</h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-                        <div class="box-body chart-responsive">
-                            <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.box -->
-                </div>
-                <!-- /.col (LEFT) -->
-                <div class="col-md-6">
-                    <!-- LINE CHART -->
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Line Chart</h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-                        <div class="box-body chart-responsive">
-                            <div class="chart" id="line-chart" style="height: 300px;"></div>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.box -->
-                    <!-- BAR CHART -->
-                    <div class="box box-success">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Bar Chart</h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-                        <div class="box-body chart-responsive">
-                            <div class="chart" id="bar-chart" style="height: 300px;"></div>
-                        </div>
-                        <div class="row" style="background-color: #ecf0f5;">
-                            <div class="top_interactions">
-                                <div class="col-md-3 col-sm-6 col-xs-12">
-                                    <div class="info-box">
-                                        <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">Messages</span>
-                                            <span class="info-box-number">1,410</span>
-                                        </div>
-                                        <!-- /.info-box-content -->
+                            <!-- /.col -->
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <img class="img-responsive" id="photo2" src="" alt="Photo">
+                                        <br>
+                                        <img class="img-responsive" id="photo3" src="" alt="Photo">
                                     </div>
-                                    <!-- /.info-box -->
+                                    <!-- /.col -->
+                                    <div class="col-sm-6">
+                                        <img class="img-responsive" id="photo4" src="" alt="Photo">
+                                        <br>
+                                        <img class="img-responsive" id="photo5" src="" alt="Photo">
+                                    </div>
+                                    <!-- /.col -->
                                 </div>
-                                <!-- /.col -->
+                                <!--/row-->
                             </div>
-                            <!--/top interactions-->
+                            <!--/col-->
                         </div>
+                        <!--/row-->
+
+
                     </div>
-                    <div id="celebrity_match"><strong>Your Celebrity matches</strong>
-                        <img src="assets/images/placeholder.png" id="cel-image">
-                        <img src="assets/images/placeholder.png" id="cel-image">
-                        <img src="assets/images/placeholder.png" id="cel-image">
-                        <img src="assets/images/placeholder.png" id="cel-image"></div>
+                    <!--/post-->
                 </div>
+                <!--/activity-->
+
+
             </div>
-    </div>
-    </div>
-    <div class="row" id="logo">
-        <div class="col-md-4">
-            <img src="assets/images/Twitter_logo.png" id="logo">
+            <!--/tabcontent-->
         </div>
+        <!--/div-->
     </div>
-    <script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
-    <script src="assets/javascript/js.js"></script>
-    <!-- Morris.js charts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    <script src="assets/plugins/morris/morris.min.js"></script>
-    <!-- FastClick -->
-    <script src="assets/plugins/fastclick/fastclick.js"></script>
-    <!-- AdminLTE App -->
-    <script src="assets/dist/js/app.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="assets/dist/js/demo.js"></script>
-    <!-- page script -->
-    <script>
-    </script>
+    <!--/row-->
+
+
+    </section>
+
+
+       
+    </div><!--/main-container-->
+
+
+   <script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
+   <script src="assets/javascript/js.js"></script>
+   <!-- Morris.js charts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="assets/plugins/morris/morris.min.js"></script>
+<!-- FastClick -->
+<script src="assets/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="assets/dist/js/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="assets/dist/js/demo.js"></script>
+<!-- page script -->
+<script>
+</script>
 </body>
-<footer>
+
+   <footer>
     <div class="container footer">
-        &copy; Copyright 2017 The Good Lobsters
+      &copy; Copyright 2017 The Good Lobsters
     </div>
-</footer>
+  </footer> 
 </body>
