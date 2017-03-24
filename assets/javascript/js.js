@@ -1,3 +1,8 @@
+//var target = document.getElementById('submit')
+//var spinner = new Spinner(opts).spin(target);
+//var spinner = new Spinner().spin()
+//target.appendChild(spinner.el)
+
 var whoAreYou = {
     type: {
         ESTJ: "Overseer",
@@ -24,21 +29,25 @@ for (var item in whoAreYou.type) {
     //console.log(item);
 }
 
+
 var personalityType = {
 
     Defender: "this is the defender description"
 };
+
+var introvert = "Introverts get their energy by spending time in small groups, seeking depth instead of breadth of friendships. Many confuse introverts as being quiet in isolation when really it means that someone is getting affirmation in their goal achievement with self-acknowledgement.";
+var intuitive = "Intuitive people live in the past in order to predict the future. They like to take in information with an inclination to use their pattern recognition to classify their “here and now” environments so that they may have an idea of what to expect in the future. We are Intuitive when we: Come up with a new way of doing things Think about future implications for a current action Perceive underlying meaning in what people say or do See the big picture";
+var judging = "Judging has to do with how people live their lives. They like to have plans confirmed and set in advance of completing a task and see that their life has structure. We are using Judging when we: Make a list of things to do Schedule things in advance Form and express judgments Bring closure to an issue so that we can move on"
+
+
+
 
 $("#submit").on("click", function() {
     event.preventDefault();
 
     var twitterInput = $("#inputTwitter").val().trim();
 
-    // Broad Listening API URL
     var queryURL = "https://broadlistening-com-personality-insights-from-twitter-v1.p.mashape.com/blapi?user=" + twitterInput;
-
-    // Social Searcher API URL
-    var searchURL = "https://api.social-searcher.com/v2/search?q=" + twitterInput + "&type=photo&network=twitter&limit=5&key=286ab6993019696c1f073d9c59058ff6";
 
     var params = {
         type: 'GET',
@@ -47,33 +56,39 @@ $("#submit").on("click", function() {
         beforeSend: function(request) {
             request.setRequestHeader("X-Mashape-Key", 'xO81O4dkRNmshRgvsvlymjRRkmFCp1XEQ4CjsnivY5K6rRVxu7');
         },
-
-        // var socialParams = {
-        //         url: searchURL,
-        //         method: "GET"
-        //     },
-
     };
 
-    // Social Search AJAX Call
-    // $.ajax(socialParams).done(function(response) {
-    //     var results = response.data;
-    //     response.addHeader("Access-Control-Allow-Origin", "*");
-    // });
 
-    // Broad Listening AJAX Call
     $.ajax(params).done(function(response) {
         var response = JSON.parse(response);
         console.log(response.NJType);
 
+
         var type = response.NJType;
         var whoAreYouType = whoAreYou.type[type];
+        console.log("whoAreYou.type[type]" + whoAreYouType);
 
-        var temperament = response.BLArchetype;
+
+        var temporantent = response.BLArchetype;
         var twitterImage = response.TwitterImage;
         var TwitterUser = response.TwitterUser;
         var TwitterFollowers = response.TwitterFollowers;
         var TwitterShares = response.TwitterShares;
+        var counter = 0;
+
+        for (var i = 0; i < 5; i++) {
+            var interactUN = response.TwitterInteractsWith[i][0];
+            counter++;
+            $('#interactun' + counter).html(interactUN);
+
+            var img = $('<img>')
+            var twitterInteractionImg = "<a href='https://twitter.com/'" + interactUN + ">" + "<img src = 'https://twitter.com/" + interactUN + "/profile_image?size=original' height='90' width='90' style='display: -webkit-box;'/></a>"
+
+            $('#top_int_image' + counter).html(twitterInteractionImg);
+
+
+            console.log("interacts with:  " + response.TwitterInteractsWith[i][0]);
+        }
 
         //var twitterFullName = response.
         //console.log("twitterImage" + twitterImage);
@@ -84,17 +99,74 @@ $("#submit").on("click", function() {
         $('#twitterFullName').html(TwitterUser);
         $('#shares').html(TwitterShares);
 
-
         //show famous people based off type
-        //types, temperaments, personalities
+        //types, temporantents, personalities
 
         //protectors, intellectuals, visionaries,
 
-        console.log("Broad Listening results: " + response);
-
-        console.log("Social Search results: " + results);
+        console.log(response);
 
     }); //ajax
+
+    $.ajaxPrefilter(function(options) {
+        if (options.crossDomain && jQuery.support.cors) {
+            options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+        }
+    });
+
+    var searchURL = "https://api.social-searcher.com/v2/search?q=" + twitterInput + "&type=photo&network=twitter&limit=5&key=286ab6993019696c1f073d9c59058ff6";
+
+    $.ajax({
+            url: searchURL,
+            method: "GET",
+            dataType: "json"
+        })
+        .done(function(response) {
+
+            for (var i = 0; i < 5; i++) {
+                var image = response.posts[0].image;
+                console.log("image" + image);
+                images++;
+
+                var photo = $('#photo' + images).attr("src", image);
+            }
+
+            console.log(response);
+            console.log("posts" + response.posts[0].image);
+            console.log(response);
+
+        });
+
+    // Klout API URL
+    var kloutSearch = "http://api.klout.com/v2/identity.json/twitter?screenName=" + twitterInput + "&key=nqfmhgm6t56scc8csdfmz9wy";
+
+    // Klout Twitter Screen Name AJAX Call
+    $.ajax({
+            method: "GET",
+            url: kloutSearch,
+        })
+        // done function for Klout Twitter Screen Name AJAX Call
+        .done(function(klout) {
+
+            // Twitter Screen Name turned into Klout ID Number and then variable 
+            var kloutId = klout.id;
+
+            // Klout ID Score API URL
+            var kloutIdURL = "http://api.klout.com/v2/user.json/" + kloutId + "/score?key=nqfmhgm6t56scc8csdfmz9wy";
+
+            // Klout ID Score AJAX Call
+            $.ajax({
+                method: "GET",
+                url: kloutIdURL,
+            })
+            // done function for Klout ID Score AJAX Call
+            .done(function(kloutIdResult) {
+
+            // Klout ID Score result and variable   
+            var kloutScore = kloutIdResult.score;
+            });
+
+        }); // End of Klout AJAX 
 
 }); // end of click submit
 
@@ -104,7 +176,10 @@ $("#reset").on("click", function() {
     $("#inputTwitter").empty();
     var twitterInput = "";
 
+
 });
+
+console.log(whoAreYou.type);
 
 
 $(function() {
