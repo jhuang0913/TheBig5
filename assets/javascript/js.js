@@ -25,6 +25,7 @@ var whoAreYou = {
 
 };
 
+
 for (var item in whoAreYou.type) {
     //console.log(item);
 }
@@ -46,8 +47,10 @@ $("#submit").on("click", function() {
     event.preventDefault();
 
     var twitterInput = $("#inputTwitter").val().trim();
-    console.log("User's Twitter Handle: " + twitterInput);
+
     var queryURL = "https://broadlistening-com-personality-insights-from-twitter-v1.p.mashape.com/blapi?user=" + twitterInput;
+
+
 
     var params = {
         type: 'GET',
@@ -57,7 +60,6 @@ $("#submit").on("click", function() {
             request.setRequestHeader("X-Mashape-Key", 'xO81O4dkRNmshRgvsvlymjRRkmFCp1XEQ4CjsnivY5K6rRVxu7');
         },
     };
-
 
     $.ajax(params).done(function(response) {
         var response = JSON.parse(response);
@@ -74,6 +76,11 @@ $("#submit").on("click", function() {
         var TwitterUser = response.TwitterUser;
         var TwitterFollowers = response.TwitterFollowers;
         var TwitterShares = response.TwitterShares;
+        var NJScoreE = response.NJScoreE;
+        var NJScoreI = response.NJScoreI;
+        var NJScoreJ = response.NJScoreJ;
+        var socialCap = response.TwitterSocialCapitalPercentile;
+
         var counter = 0;
 
         for (var i = 0; i < 5; i++) {
@@ -90,6 +97,47 @@ $("#submit").on("click", function() {
             console.log("interacts with:  " + response.TwitterInteractsWith[i][0]);
         }
 
+
+
+
+        $(function() {
+            "use strict";
+
+
+            //DONUT CHART
+            var donut = new Morris.Donut({
+                element: 'sales-chart',
+                resize: true,
+                colors: ["#3c8dbc", "#f56954", "#00a65a"],
+                data: [
+                    { label: "Introvert", value: NJScoreE },
+                    { label: "Extrovert", value: NJScoreE },
+                    { label: "Judging", value: NJScoreJ }
+                ],
+                hideHover: 'auto'
+            });
+            //BAR CHART
+            var bar = new Morris.Bar({
+                element: 'bar-chart',
+                resize: true,
+                data: [
+                    { y: '2006', a: 100, b: 90 },
+                    { y: '2007', a: 75, b: 65 },
+                    { y: '2008', a: 50, b: 40 },
+                    { y: '2009', a: 75, b: 65 },
+                    { y: '2010', a: 50, b: 40 },
+                    { y: '2011', a: 75, b: 65 },
+                    { y: '2012', a: 100, b: 90 }
+                ],
+                barColors: ['#00a65a', '#f56954'],
+                xkey: 'y',
+                ykeys: ['a', 'b'],
+                labels: ['CPU', 'DISK'],
+                hideHover: 'auto'
+            });
+        });
+
+
         //var twitterFullName = response.
         //console.log("twitterImage" + twitterImage);
         $("#results").html("Type of Perosnality: " + whoAreYouType);
@@ -98,6 +146,13 @@ $("#submit").on("click", function() {
         $('#followers').html(TwitterFollowers);
         $('#twitterFullName').html(TwitterUser);
         $('#shares').html(TwitterShares);
+        $('#photoName').html(TwitterUser);
+        $('#socialCap').attr("style", "width:" + socialCap + "%");
+        $('#socialCapDesc').html(socialCap + "% Complete (success)");
+        //show famous people based off type
+        //types, temporantents, personalities
+
+        //protectors, intellectuals, visionaries,
 
         console.log(response);
 
@@ -117,9 +172,10 @@ $("#submit").on("click", function() {
             dataType: "json"
         })
         .done(function(response) {
+            var images = 0;
 
             for (var i = 0; i < 5; i++) {
-                var image = response.posts[0].image;
+                var image = response.posts[i].image;
                 console.log("image" + image);
                 images++;
 
@@ -129,6 +185,8 @@ $("#submit").on("click", function() {
             console.log(response);
             console.log("posts" + response.posts[0].image);
             console.log(response);
+
+
 
         });
 
@@ -159,11 +217,53 @@ $("#submit").on("click", function() {
                 .done(function(kloutIdResult) {
 
                     // Klout ID Score result and variable   
-                    var kloutScore = kloutIdResult.score;
+                    var kloutScore = Math.floor(kloutIdResult.score * 10) / 10;
                     console.log("User's Klout Score: " + kloutScore);
+
+                    // Klout Score Semi-Circle Graph
+                    // progressbar.js@1.0.0 version is used
+                    // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
+
+                    var bar = new ProgressBar.SemiCircle("#klout", {
+                        strokeWidth: 10,
+                        color: '#FFEA82',
+                        trailColor: '#eee',
+                        trailWidth: 1,
+                        easing: 'easeInOut',
+                        duration: 1800,
+                        svgStyle: null,
+                        text: {
+                            value: '',
+                            alignToBottom: false
+                        },
+                        from: { color: '#FFEA82' },
+                        to: { color: '#ED6A5A' },
+                        // Set default step function for all animate calls
+                        step: (state, bar) => {
+                            bar.path.setAttribute('stroke', state.color);
+                            var value = Math.round(bar.value() * 100);
+                            if (value === 0) {
+                                bar.setText('Klout Score');
+                            } else {
+                                bar.setText(kloutScore);
+                            }
+
+                            bar.text.style.color = state.color;
+                        }
+                    });
+
+                    // Variable for converting Klout score into measurable percent
+                    var kloutScorePercent = kloutScore / 100;
+
+                    // Graph animation
+                    bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+                    bar.text.style.fontSize = '2rem';
+                    bar.animate(kloutScorePercent); // Number from 0.0 to 1.0
+
                 });
 
         }); // End of Klout AJAX 
+
 
 }); // end of click submit
 
@@ -177,86 +277,3 @@ $("#reset").on("click", function() {
 });
 
 console.log(whoAreYou.type);
-
-
-$(function() {
-    "use strict";
-
-    // AREA CHART
-    var area = new Morris.Area({
-        element: 'revenue-chart',
-        resize: true,
-        data: [
-            { y: '2011 Q1', item1: 2666, item2: 2666 },
-            { y: '2011 Q2', item1: 2778, item2: 2294 },
-            { y: '2011 Q3', item1: 4912, item2: 1969 },
-            { y: '2011 Q4', item1: 3767, item2: 3597 },
-            { y: '2012 Q1', item1: 6810, item2: 1914 },
-            { y: '2012 Q2', item1: 5670, item2: 4293 },
-            { y: '2012 Q3', item1: 4820, item2: 3795 },
-            { y: '2012 Q4', item1: 15073, item2: 5967 },
-            { y: '2013 Q1', item1: 10687, item2: 4460 },
-            { y: '2013 Q2', item1: 8432, item2: 5713 }
-        ],
-        xkey: 'y',
-        ykeys: ['item1', 'item2'],
-        labels: ['Item 1', 'Item 2'],
-        lineColors: ['#a0d0e0', '#3c8dbc'],
-        hideHover: 'auto'
-    });
-
-    // LINE CHART
-    var line = new Morris.Line({
-        element: 'line-chart',
-        resize: true,
-        data: [
-            { y: '2011 Q1', item1: 2666 },
-            { y: '2011 Q2', item1: 2778 },
-            { y: '2011 Q3', item1: 4912 },
-            { y: '2011 Q4', item1: 3767 },
-            { y: '2012 Q1', item1: 6810 },
-            { y: '2012 Q2', item1: 5670 },
-            { y: '2012 Q3', item1: 4820 },
-            { y: '2012 Q4', item1: 15073 },
-            { y: '2013 Q1', item1: 10687 },
-            { y: '2013 Q2', item1: 8432 }
-        ],
-        xkey: 'y',
-        ykeys: ['item1'],
-        labels: ['Item 1'],
-        lineColors: ['#3c8dbc'],
-        hideHover: 'auto'
-    });
-
-    //DONUT CHART
-    var donut = new Morris.Donut({
-        element: 'sales-chart',
-        resize: true,
-        colors: ["#3c8dbc", "#f56954", "#00a65a"],
-        data: [
-            { label: "Download Sales", value: 12 },
-            { label: "In-Store Sales", value: 30 },
-            { label: "Mail-Order Sales", value: 20 }
-        ],
-        hideHover: 'auto'
-    });
-    //BAR CHART
-    var bar = new Morris.Bar({
-        element: 'bar-chart',
-        resize: true,
-        data: [
-            { y: '2006', a: 100, b: 90 },
-            { y: '2007', a: 75, b: 65 },
-            { y: '2008', a: 50, b: 40 },
-            { y: '2009', a: 75, b: 65 },
-            { y: '2010', a: 50, b: 40 },
-            { y: '2011', a: 75, b: 65 },
-            { y: '2012', a: 100, b: 90 }
-        ],
-        barColors: ['#00a65a', '#f56954'],
-        xkey: 'y',
-        ykeys: ['a', 'b'],
-        labels: ['CPU', 'DISK'],
-        hideHover: 'auto'
-    });
-});
