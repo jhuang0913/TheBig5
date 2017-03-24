@@ -3,6 +3,7 @@
 //var spinner = new Spinner().spin()
 //target.appendChild(spinner.el)
 
+
     var whoAreYou = {
         type: {
           ESTJ: "Overseer",
@@ -72,7 +73,19 @@ $("#submit").on("click", function() {
           var whoAreYouType = whoAreYou.type[type];
           console.log("whoAreYou.type[type]" + whoAreYouType);
 
+   $(function() {
+            $('[data-toggle="tooltip"]').tooltip({ trigger: 'manual' }).tooltip('show');
+        });
 
+        // $( window ).scroll(function() {   
+        // if($( window ).scrollTop() > 10){  // scroll down abit and get the action   
+        $(".progress-bar").each(function() {
+            each_bar_width = $(this).attr('aria-valuenow');
+            $(this).width(each_bar_width + '%');
+        });
+
+        //  }  
+        // });
           var temporantent = response.BLArchetype;
           var twitterImage = response.TwitterImage;
           var TwitterUser = response.TwitterUser;
@@ -82,7 +95,9 @@ $("#submit").on("click", function() {
           var NJScoreI = response.NJScoreI;
           var NJScoreJ = response.NJScoreJ;
           var socialCap = response.TwitterSocialCapitalPercentile;
+          var followMe = $('#followme').attr('href', "https://twitter.com/" + TwitterUser );
 
+  
           var counter = 0;
 
           for (var i = 0; i < 5; i++) {
@@ -138,6 +153,9 @@ $("#submit").on("click", function() {
                   hideHover: 'auto'
               });
           });
+         
+
+
 
 
           //var twitterFullName = response.
@@ -150,7 +168,7 @@ $("#submit").on("click", function() {
           $('#shares').html(TwitterShares);
           $('#photoName').html(TwitterUser);
           $('#socialCap').attr("style", "width:" + socialCap + "%");
-          $('#socialCapDesc').html(socialCap + "% Complete (success)");
+          $('#socialCapDesc').attr("title", socialCap + "% Complete (success)" );
           //show famous people based off type
           //types, temporantents, personalities
 
