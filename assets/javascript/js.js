@@ -63,55 +63,103 @@ $("#submit").on("click", function() {
     },
 };
 
-        
-  $.ajax(params).done(function(response) {
-    var response = JSON.parse(response);
-    console.log(response.NJType);
+        $.ajax(params).done(function(response) {
+          var response = JSON.parse(response);
+          console.log(response.NJType);
 
 
-    var type = response.NJType;
-    var whoAreYouType = whoAreYou.type[type];
-    console.log("whoAreYou.type[type]" + whoAreYouType);
+          var type = response.NJType;
+          var whoAreYouType = whoAreYou.type[type];
+          console.log("whoAreYou.type[type]" + whoAreYouType);
 
 
-    var temporantent = response.BLArchetype;
-    var twitterImage = response.TwitterImage;
-    var TwitterUser = response.TwitterUser;
-    var TwitterFollowers = response.TwitterFollowers;
-    var TwitterShares = response.TwitterShares;
-    var counter = 0; 
+          var temporantent = response.BLArchetype;
+          var twitterImage = response.TwitterImage;
+          var TwitterUser = response.TwitterUser;
+          var TwitterFollowers = response.TwitterFollowers;
+          var TwitterShares = response.TwitterShares;
+          var NJScoreE = response.NJScoreE;
+          var NJScoreI = response.NJScoreI;
+          var NJScoreJ = response.NJScoreJ;
+          var socialCap = response.TwitterSocialCapitalPercentile;
 
-    for (var i = 0; i < 5; i++){
-      var interactUN = response.TwitterInteractsWith[i][0];
-      counter++;
-      $('#interactun'+ counter).html(interactUN);
+          var counter = 0;
 
-      var img = $('<img>')
-      var twitterInteractionImg = "<a href='https://twitter.com/'" + interactUN + ">" + "<img src = 'https://twitter.com/" + interactUN + "/profile_image?size=original' height='90' width='90' style='display: -webkit-box;'/></a>"
+          for (var i = 0; i < 5; i++) {
+              var interactUN = response.TwitterInteractsWith[i][0];
+              counter++;
+              $('#interactun' + counter).html(interactUN);
 
-      $('#top_int_image'+ counter).html(twitterInteractionImg);
+              var img = $('<img>')
+              var twitterInteractionImg = "<a href='https://twitter.com/'" + interactUN + ">" + "<img src = 'https://twitter.com/" + interactUN + "/profile_image?size=original' height='90' width='90' style='display: -webkit-box;'/></a>"
+
+              $('#top_int_image' + counter).html(twitterInteractionImg);
 
 
-      console.log("interacts with:  " + response.TwitterInteractsWith[i][0]);
-    }
+              console.log("interacts with:  " + response.TwitterInteractsWith[i][0]);
+          }
 
-    //var twitterFullName = response.
-    //console.log("twitterImage" + twitterImage);
-    $("#results").html("Type of Perosnality: " + whoAreYouType );
-    $(".img-circle").attr("src", twitterImage);
-    $('#twitterFullName').html(TwitterUser);
-    $('#followers').html(TwitterFollowers);
-    $('#twitterFullName').html(TwitterUser);
-    $('#shares').html(TwitterShares);
 
-    //show famous people based off type
-    //types, temporantents, personalities
 
-    //protectors, intellectuals, visionaries,
 
-    console.log(response);
+          $(function() {
+              "use strict";
 
-  });//ajax
+
+              //DONUT CHART
+              var donut = new Morris.Donut({
+                  element: 'sales-chart',
+                  resize: true,
+                  colors: ["#3c8dbc", "#f56954", "#00a65a"],
+                  data: [
+                      { label: "Introvert", value: NJScoreE },
+                      { label: "Extrovert", value: NJScoreE },
+                      { label: "Judging", value: NJScoreJ }
+                  ],
+                  hideHover: 'auto'
+              });
+              //BAR CHART
+              var bar = new Morris.Bar({
+                  element: 'bar-chart',
+                  resize: true,
+                  data: [
+                      { y: '2006', a: 100, b: 90 },
+                      { y: '2007', a: 75, b: 65 },
+                      { y: '2008', a: 50, b: 40 },
+                      { y: '2009', a: 75, b: 65 },
+                      { y: '2010', a: 50, b: 40 },
+                      { y: '2011', a: 75, b: 65 },
+                      { y: '2012', a: 100, b: 90 }
+                  ],
+                  barColors: ['#00a65a', '#f56954'],
+                  xkey: 'y',
+                  ykeys: ['a', 'b'],
+                  labels: ['CPU', 'DISK'],
+                  hideHover: 'auto'
+              });
+          });
+
+
+          //var twitterFullName = response.
+          //console.log("twitterImage" + twitterImage);
+          $("#results").html("Type of Perosnality: " + whoAreYouType);
+          $(".img-circle").attr("src", twitterImage);
+          $('#twitterFullName').html(TwitterUser);
+          $('#followers').html(TwitterFollowers);
+          $('#twitterFullName').html(TwitterUser);
+          $('#shares').html(TwitterShares);
+          $('#photoName').html(TwitterUser);
+          $('#socialCap').attr("style", "width:" + socialCap + "%");
+          $('#socialCapDesc').html(socialCap + "% Complete (success)");
+          //show famous people based off type
+          //types, temporantents, personalities
+
+          //protectors, intellectuals, visionaries,
+
+          console.log(response);
+
+}); //ajax
+
 
   $.ajaxPrefilter(function(options) {
   if (options.crossDomain && jQuery.support.cors) {
@@ -191,44 +239,6 @@ $("#reset").on("click", function() {
 });
 
 console.log(whoAreYou.type);
-
-
-  $(function () {
-    "use strict";
-
-
-    //DONUT CHART
-    var donut = new Morris.Donut({
-      element: 'sales-chart',
-      resize: true,
-      colors: ["#3c8dbc", "#f56954", "#00a65a"],
-      data: [
-        {label: "Download Sales", value: 12},
-        {label: "In-Store Sales", value: 30},
-        {label: "Mail-Order Sales", value: 20}
-      ],
-      hideHover: 'auto'
-    });
-    //BAR CHART
-    var bar = new Morris.Bar({
-      element: 'bar-chart',
-      resize: true,
-      data: [
-        {y: '2006', a: 100, b: 90},
-        {y: '2007', a: 75, b: 65},
-        {y: '2008', a: 50, b: 40},
-        {y: '2009', a: 75, b: 65},
-        {y: '2010', a: 50, b: 40},
-        {y: '2011', a: 75, b: 65},
-        {y: '2012', a: 100, b: 90}
-      ],
-      barColors: ['#00a65a', '#f56954'],
-      xkey: 'y',
-      ykeys: ['a', 'b'],
-      labels: ['CPU', 'DISK'],
-      hideHover: 'auto'
-    });
-  });
 
 
 
