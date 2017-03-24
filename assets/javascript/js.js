@@ -167,8 +167,9 @@ $("#submit").on("click", function() {
           $('#twitterFullName').html(TwitterUser);
           $('#shares').html(TwitterShares);
           $('#photoName').html(TwitterUser);
-          $('#socialCap').attr("style", "width:" + socialCap + "%");
-          $('#socialCapDesc').attr("title", socialCap + "% Complete (success)" );
+          $('#socialCap').attr("aria-valuenow", socialCap);
+          $('#socialCap').attr("width", socialCap + "%");
+          $('#socialCapTitle').attr("socialCapTitle", socialCap + "%");
           //show famous people based off type
           //types, temporantents, personalities
 
