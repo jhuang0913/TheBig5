@@ -169,7 +169,8 @@ $("#submit").on("click", function() {
           $('#photoName').html(TwitterUser);
           $('#socialCap').attr("aria-valuenow", socialCap);
           $('#socialCap').attr("width", socialCap + "%");
-          $('#socialCapTitle').attr("socialCapTitle", socialCap + "%");
+          $('#socialCap').attr("style", "width:" + socialCap + "%;");
+          $('#socialCapTitle').attr("title", socialCap + "%");
           //show famous people based off type
           //types, temporantents, personalities
 
@@ -227,23 +228,38 @@ $("#submit").on("click", function() {
 
           });
 
-  // Klout API URL
-var kloutSearch = "http://api.klout.com/v2/identity.json/twitter?screenName=" + twitterInput + "&key=nqfmhgm6t56scc8csdfmz9wy";
+ // Klout API URL
+    var kloutSearch = "http://api.klout.com/v2/identity.json/twitter?screenName=" + twitterInput + "&key=nqfmhgm6t56scc8csdfmz9wy";
 
-$.ajax({
-        method: "GET",
-        url: kloutSearch,
-      
-})
-.done(function(klout) {
-        console.log (klout);
-        console.log(klout.id);
-        });
+    // Klout Twitter Screen Name AJAX Call
+    $.ajax({
+            method: "GET",
+            url: kloutSearch,
+        })
+        // done function for Klout Twitter Screen Name AJAX Call
+        .done(function(klout) {
 
+            // Twitter Screen Name turned into Klout ID Number and then variable 
+            var kloutId = klout.id;
+            console.log("User's Klout ID: " + kloutId);
 
-var kloutId = "http://api.klout.com/v2/user.json/" + + "score?key=nqfmhgm6t56scc8csdfmz9wy";
+            // Klout ID Score API URL
+            var kloutIdURL = "http://api.klout.com/v2/user.json/" + kloutId + "/score?key=nqfmhgm6t56scc8csdfmz9wy";
 
+            // Klout ID Score AJAX Call
+            $.ajax({
+                    method: "GET",
+                    url: kloutIdURL,
+                })
+                // done function for Klout ID Score AJAX Call
+                .done(function(kloutIdResult) {
 
+                    // Klout ID Score result and variable   
+                    var kloutScore = kloutIdResult.score;
+                    console.log("User's Klout Score: " + kloutScore);
+                });
+
+        }); // End of Klout AJAX 
 
 
 });// end of click submit
