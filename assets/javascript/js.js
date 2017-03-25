@@ -26,7 +26,7 @@
     };
 
 
-
+  $("#resultsSection").hide();
 
   for (var item in whoAreYou.type) {
     //console.log(item);
@@ -157,6 +157,7 @@ $("#submit").on("click", function() {
           //protectors, intellectuals, visionaries,
 
           console.log(response);
+          $("#resultsSection").show();
 
 }); //ajax
 
