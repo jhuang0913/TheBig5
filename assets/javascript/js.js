@@ -118,25 +118,6 @@ $("#submit").on("click", function() {
                   ],
                   hideHover: 'auto'
               });
-              //BAR CHART
-              var bar = new Morris.Bar({
-                  element: 'bar-chart',
-                  resize: true,
-                  data: [
-                      { y: '2006', a: 100, b: 90 },
-                      { y: '2007', a: 75, b: 65 },
-                      { y: '2008', a: 50, b: 40 },
-                      { y: '2009', a: 75, b: 65 },
-                      { y: '2010', a: 50, b: 40 },
-                      { y: '2011', a: 75, b: 65 },
-                      { y: '2012', a: 100, b: 90 }
-                  ],
-                  barColors: ['#00a65a', '#f56954'],
-                  xkey: 'y',
-                  ykeys: ['a', 'b'],
-                  labels: ['CPU', 'DISK'],
-                  hideHover: 'auto'
-              });
           });
 
 
@@ -224,11 +205,63 @@ $.ajax({
 
 
 var kloutId = "http://api.klout.com/v2/user.json/" + + "score?key=nqfmhgm6t56scc8csdfmz9wy";
+     // Klout API URL
+ @@ -159,12 +217,54 @@ $("#submit").on("click", function() {
+                  .done(function(kloutIdResult) {
+  
+                      // Klout ID Score result and variable   
+ -                    var kloutScore = kloutIdResult.score;
+ +                    var kloutScore = Math.floor(kloutIdResult.score * 10) / 10;
+                      console.log("User's Klout Score: " + kloutScore);
+ +
+ +                    // Klout Score Semi-Circle Graph
+ +                    // progressbar.js@1.0.0 version is used
+ +                    // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
+ +
+ +                    var bar = new ProgressBar.SemiCircle("#klout", {
+ +                        strokeWidth: 10,
+ +                        color: '#FFEA82',
+ +                        trailColor: '#eee',
+ +                        trailWidth: 1,
+ +                        easing: 'easeInOut',
+ +                        duration: 1800,
+ +                        svgStyle: null,
+ +                        text: {
+ +                            value: '',
+ +                            alignToBottom: false
+ +                        },
+ +                        from: { color: '#FFEA82' },
+ +                        to: { color: '#ED6A5A' },
+ +                        // Set default step function for all animate calls
+ +                        step: (state, bar) => {
+ +                            bar.path.setAttribute('stroke', state.color);
+ +                            var value = Math.round(bar.value() * 100);
+ +                            if (value === 0) {
+ +                                bar.setText('Klout Score');
+ +                            } else {
+ +                                bar.setText(kloutScore);
+ +                            }
+ +
+ +                            bar.text.style.color = state.color;
+ +                        }
+ +                    });
+ +
+ +                    // Variable for converting Klout score into measurable percent
+ +                    var kloutScorePercent = kloutScore / 100;
+ +
+ +                    // Graph animation
+ +                    bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+ +                    bar.text.style.fontSize = '2rem';
+ +                    bar.animate(kloutScorePercent); // Number from 0.0 to 1.0
+ +
+                  });
+  
+          }); // End of Klout AJAX 
+  
+ +
+  });
 
-
-
-
-});// end of click submit
+// end of click submit
 
 
 $("#reset").on("click", function() {
