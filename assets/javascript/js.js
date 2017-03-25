@@ -117,7 +117,7 @@ $("#submit").on("click", function() {
         method: "GET",
         dataType: "json"
     })
-    done(function(response) {
+    .done(function(response) {
         var images = 0;
         for (var i = 0; i < 5; i++) {
             var image = response.posts[i].image;
